@@ -8,7 +8,7 @@ from src.core.Updater import Updater
 from src.core.Renderer import Renderer
 
 
-class MainMenuScene(Scene):
+class PlayScene(Scene):
     nodes: list[Node]
 
     def __init__(

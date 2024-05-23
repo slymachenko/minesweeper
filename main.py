@@ -1,5 +1,5 @@
 from src.core.Core import Core
-from src.scenes.MainMenuScene import MainMenuScene
+from src.scenes.PlayScene import PlayScene
 
 
 def main():
@@ -7,7 +7,7 @@ def main():
     screen_height: int = 720
     fps: int = 60
 
-    game = Core(MainMenuScene, screen_width, screen_height, fps)
+    game = Core(PlayScene, screen_width, screen_height, fps)
     game.run()
 
 

@@ -1,9 +1,6 @@
 # TYPES
 from typing import Tuple
 
-# from src.modules.scenes.PlayScene import PlayScene
-# from src.modules.scenes.MainMenuScene import MainMenuScene
-
 
 class Updater:
     is_game_running: bool
@@ -31,10 +28,10 @@ class Updater:
 
     def switch_scene(self, scene_name) -> None:
         match scene_name:
-            case "MainMenuScene":
-                from src.scenes.MainMenuScene import MainMenuScene
+            case "PlayScene":
+                from scenes.PlayScene import PlayScene
 
-                self.core.switch_scene(MainMenuScene)
+                self.core.switch_scene(PlayScene)
 
     def quit(self) -> None:
         self.is_game_running = False
