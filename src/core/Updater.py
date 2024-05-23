@@ -15,7 +15,7 @@ class Updater:
 
         self.game_screen_x: Tuple[int, int] = (
             (screen_width - screen_height) // 2,
-            (screen_width - screen_height) // 2 + screen_height,
+            screen_height,
         )
         self.game_screen_y: Tuple[int, int] = (
             0,

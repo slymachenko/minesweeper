@@ -40,7 +40,7 @@ class Renderer:
         self.clock = Clock()
 
     def render(self, *scenes) -> None:
-        self.clear_screen()
+        self.fill_screen(255, 255, 255)
 
         for scene in scenes:
             scene.render()
@@ -48,5 +48,5 @@ class Renderer:
         pygame.display.flip()
         self.ticks += self.clock.tick(self.fps)
 
-    def clear_screen(self) -> None:
-        self.screen.fill((255, 255, 255))
+    def fill_screen(self, r: int, g: int, b:int) -> None:
+        self.screen.fill((r, g, b))
