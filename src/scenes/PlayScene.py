@@ -1,8 +1,9 @@
+import random
 from src.utils import constants as const
 
 from src.bases.nodes.ColorSprite import ColorSprite
 from src.bases.nodes.Sprite import Sprite
-from src.bases.nodes.Cell import Cell
+from src.bases.nodes.Grid import Grid
 
 # BASES
 from src.bases.scenes.Scene import Scene
@@ -25,6 +26,15 @@ class PlayScene(Scene):
         self.renderer = renderer
         self.nodes = list()
 
+        tiles = 16
+        self.grid = Grid(
+            self,
+            self.updater.game_screen_x[0] + 32 + 25, 
+            self.updater.game_screen_y[0] + 32 + 25, 
+            (self.updater.game_screen_x[1] - 64 - 50) // tiles,
+            (self.updater.game_screen_y[1] - 64 - 50) // tiles,
+            16,
+            0.1)
         self.setup()
 
     def setup(self) -> None:
@@ -99,24 +109,4 @@ class PlayScene(Scene):
         )
     
     def gen_grid(self) -> None:
-        tiles = (self.updater.game_screen_x[1] - 32 - 50) // 16
-
-        grid_panel = ((
-            self.updater.game_screen_x[0] + 16 + 25,
-            tiles * 16,
-        ),(
-            self.updater.game_screen_y[0] + 16 + 25,
-            tiles * 16,
-        ))
-
-        for i in range(tiles):
-            for j in range(tiles):
-                self.nodes.append(
-                    Cell(
-                        self,
-                        grid_panel[0][0] + i * 16,
-                        grid_panel[1][0] + j * 16,
-                        16,
-                        16,
-                        "assets/imgs/cell.png"),
-                )
+        self.nodes += self.grid.nodes
