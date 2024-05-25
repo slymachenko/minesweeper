@@ -46,6 +46,7 @@ class Cell(AnimatedSprite):
                 self.scene.smile_button.animate()
                 
                 self.is_clicked = True
+                self.scene.timer.is_running = True
                 self.reveal()
         
             if self.scene.input_manager.events["r_mouse_up"]:

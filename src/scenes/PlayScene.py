@@ -179,12 +179,10 @@ class PlayScene(Scene):
 
     def game_over(self, is_lost: bool = True) -> None:
         if is_lost:
-            print("You lost!")
             self.smile_button.update_frame(4)
             self.smile_button.animate()
             self.timer.stop()
         else:
-            print("You won!")
             self.smile_button.update_frame(3)
             self.smile_button.animate()
             self.timer.stop()

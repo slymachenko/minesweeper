@@ -14,7 +14,7 @@ class Timer(Counter):
         super().__init__(scene, x, y, path, digits)
 
         self.seconds = 0
-        self.is_running = True
+        self.is_running = False
         self.step_timer = self.scene.renderer.ticks
 
     def run(self):
