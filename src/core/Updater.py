@@ -29,7 +29,7 @@ class Updater:
     def switch_scene(self, scene_name) -> None:
         match scene_name:
             case "PlayScene":
-                from scenes.PlayScene import PlayScene
+                from src.scenes.PlayScene import PlayScene
 
                 self.core.switch_scene(PlayScene)
 

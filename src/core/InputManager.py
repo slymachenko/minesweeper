@@ -9,9 +9,14 @@ class InputManager:
 
     def __init__(self, core):
         self.core = core
+        self.l_mouse_button_down = False
 
     def input(self, *scenes) -> None:
-        self.events = {"click": 0, "r_click": 0, "e": 0}
+        self.events = {
+            "l_mouse_up": 0, 
+            "r_mouse_up": 0, 
+            "l_mouse_down": 0
+        }
 
         # Mouse handling
         for event in pygame.event.get():
@@ -20,9 +25,14 @@ class InputManager:
                     self.core.updater.quit()
                 case pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        self.events["click"] = 1
+                        self.events["l_mouse_down"] = 1
+                        self.l_mouse_button_down = True
+                case pygame.MOUSEBUTTONUP:
+                    if event.button == 1:
+                        self.events["l_mouse_up"] = 1
+                        self.l_mouse_button_down = False
                     if event.button == 3:
-                        self.events["r_click"] = 1
+                        self.events["r_mouse_up"] = 1
 
         # Keyboard handling
         keys: list[int] = pygame.key.get_pressed()

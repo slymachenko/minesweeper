@@ -32,18 +32,28 @@ class Cell(AnimatedSprite):
         if self.is_blocked:
             return
 
-        if self.scene.input_manager.events["click"]:
-            mouse_pos = mouse.get_pos()
-            if self.rect.collidepoint(mouse_pos):
+        mouse_pos = mouse.get_pos()
+        if self.rect.collidepoint(mouse_pos):
+            if not self.is_revealed and not self.is_flagged and self.scene.input_manager.l_mouse_button_down:
+                    self.update_frame(9)
+                    self.animate()
+
+                    self.scene.smile_button.update_frame(2)
+                    self.scene.smile_button.animate()
+
+            if self.scene.input_manager.events["l_mouse_up"]:
+                self.scene.smile_button.update_frame(0)
+                self.scene.smile_button.animate()
+                
                 self.is_clicked = True
-                if self.value == -1:
-                    self.scene.game_over()
                 self.reveal()
         
-        if self.scene.input_manager.events["r_click"]:
-            mouse_pos = mouse.get_pos()
-            if self.rect.collidepoint(mouse_pos):
+            if self.scene.input_manager.events["r_mouse_up"]:
                 self.toggle_flag()
+        else:
+            if not self.is_revealed and not self.is_flagged and self.scene.input_manager.l_mouse_button_down:
+                self.update_frame(0)
+                self.animate()
 
     def reveal(self):
         if self.is_revealed or self.is_flagged and self.value != -1:
@@ -59,6 +69,7 @@ class Cell(AnimatedSprite):
             case -1:
                 if self.is_clicked:
                     self.update_frame(12)
+                    self.scene.game_over()
                 elif self.is_flagged:
                     self.update_frame(13)
                 else:
@@ -81,9 +92,12 @@ class Cell(AnimatedSprite):
         self.animate()
     
     def toggle_flag(self):
+        if self.scene.flag_counter.flags <= 0 and not self.is_flagged or self.is_revealed:
+            return
+        
         self.is_flagged = not self.is_flagged
 
-        self.scene.flag_counter.flags += 1 if not self.is_flagged else -1      
+        self.scene.flag_counter.flags += 1 if not self.is_flagged else -1
         self.scene.flag_counter.update_digits(self.scene.flag_counter.flags)
 
         self.update_frame(10) if self.is_flagged else self.update_frame(0)

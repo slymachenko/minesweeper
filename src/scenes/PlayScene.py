@@ -6,6 +6,7 @@ from src.bases.nodes.Sprite import Sprite
 from src.bases.nodes.Grid import Grid
 from src.bases.nodes.Counter import Counter
 from src.bases.nodes.Timer import Timer
+from src.bases.nodes.SmileButton import SmileButton
 
 # BASES
 from src.bases.scenes.Scene import Scene
@@ -135,9 +136,22 @@ class PlayScene(Scene):
                 wrap_mode=const.STRETCH),
         )
 
+        self.gen_smile_button()
         self.gen_flag_counter()
         self.gen_timer()
     
+    def gen_smile_button(self) -> None:
+        self.smile_button = SmileButton(
+            self,
+            self.updater.game_screen_x[0] + self.updater.game_screen_x[1] // 2,
+            self.updater.game_screen_y[0] + 62,
+            24,
+            24,
+            "assets/imgs/smiles.png",
+            wrap_mode=const.CLAMP)
+
+        self.nodes.append(self.smile_button)
+
     def gen_flag_counter(self) -> None:
         self.flag_counter = Counter(
             self,
@@ -166,9 +180,13 @@ class PlayScene(Scene):
     def game_over(self, is_lost: bool = True) -> None:
         if is_lost:
             print("You lost!")
+            self.smile_button.update_frame(4)
+            self.smile_button.animate()
             self.timer.stop()
         else:
             print("You won!")
+            self.smile_button.update_frame(3)
+            self.smile_button.animate()
             self.timer.stop()
     
     def update(self) -> None:
