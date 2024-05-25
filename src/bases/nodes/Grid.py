@@ -14,15 +14,14 @@ class Grid(Node):
         y: int,
         width: int,
         height: int,
-        tiles: int,
         mines_percentage: int
     ):
         super().__init__(scene, x, y, width, height)
-        self.tiles = tiles
-        self.mines = (int)(mines_percentage * tiles * tiles)
+        self.tiles = (self.width // 16, self.height // 16)
+        self.mines = (int)(mines_percentage * self.tiles[0] * self.tiles[1])
         
         self.nodes = []
-        self.hidden_cells = tiles * tiles - self.mines
+        self.hidden_cells = self.tiles[0] * self.tiles[1] - self.mines
         self.setup()
     
     def setup(self):
@@ -35,8 +34,8 @@ class Grid(Node):
         self.mines_positions = []
         while mines_amount > 0:
             rand_pos = [
-                random.randrange(1, self.tiles),
-                random.randrange(1, self.tiles),
+                random.randrange(1, self.tiles[0]),
+                random.randrange(1, self.tiles[1]),
             ]
 
             if rand_pos not in self.mines_positions: 
@@ -44,15 +43,15 @@ class Grid(Node):
                 mines_amount -= 1
     
     def gen_grid(self):
-        for i in range(self.tiles):
-            for j in range(self.tiles):
+        for i in range(self.tiles[0]):
+            for j in range(self.tiles[1]):
                 self.nodes.append(
                     Cell(
                         self.scene,
-                        self.x + i * self.width,
-                        self.y + j * self.height,
-                        self.width,
-                        self.height,
+                        self.x + i * (self.width // self.tiles[0]),
+                        self.y + j * (self.height // self.tiles[1]),
+                        self.width // self.tiles[0],
+                        self.height // self.tiles[1],
                         "assets/imgs/cells.png",
                         True if [i, j] in self.mines_positions else False
                     ),
@@ -64,9 +63,9 @@ class Grid(Node):
 
         for dx in [-1, 0, 1]:
             for dy in [-1, 0, 1]:
-                x, y = index % self.tiles + dx, index // self.tiles + dy
-                if 0 <= x < self.tiles and 0 <= y < self.tiles:
-                    adjacent_cells.append(self.nodes[y * self.tiles + x])
+                x, y = index // self.tiles[1] + dx, index % self.tiles[1] + dy
+                if 0 <= x < self.tiles[0] and 0 <= y < self.tiles[1]:
+                    adjacent_cells.append(self.nodes[x * self.tiles[1] + y])
 
         return adjacent_cells
 
