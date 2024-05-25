@@ -36,6 +36,8 @@ class Cell(AnimatedSprite):
             mouse_pos = mouse.get_pos()
             if self.rect.collidepoint(mouse_pos):
                 self.is_clicked = True
+                if self.value == -1:
+                    self.scene.game_over()
                 self.reveal()
         
         if self.scene.input_manager.events["r_click"]:
@@ -64,6 +66,7 @@ class Cell(AnimatedSprite):
                 self.scene.grid.block_all_cells()
             case 0:
                 self.update_frame(9)
+                self.scene.grid.update_hidden_cells()
 
                 for cell in self.scene.grid.get_adjacent_cells(self):
                     if cell.value != -1:
@@ -71,6 +74,7 @@ class Cell(AnimatedSprite):
         
         if 1 <= self.value and self.value <= 8:
             self.update_frame(self.value)
+            self.scene.grid.update_hidden_cells()
         
         self.animate()
     

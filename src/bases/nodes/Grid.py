@@ -22,6 +22,7 @@ class Grid(Node):
         self.mines = (int)(mines_percentage * tiles * tiles)
         
         self.nodes = []
+        self.hidden_cells = tiles * tiles - self.mines
         self.setup()
     
     def setup(self):
@@ -77,3 +78,10 @@ class Grid(Node):
     def block_all_cells(self):
         for node in self.nodes:
             node.is_blocked = True
+    
+    def update_hidden_cells(self):
+        self.hidden_cells -= 1
+        if self.hidden_cells <= 0:
+            self.scene.game_over(False)
+            self.reveal_all_mines()
+            self.block_all_cells()

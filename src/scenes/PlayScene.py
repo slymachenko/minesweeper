@@ -110,3 +110,9 @@ class PlayScene(Scene):
     
     def gen_grid(self) -> None:
         self.nodes += self.grid.nodes
+
+    def game_over(self, is_lost: bool = True) -> None:
+        if is_lost:
+            print("You lost!")
+        else:
+            print("You won!")
