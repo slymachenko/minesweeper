@@ -62,10 +62,14 @@ class Grid(Node):
         index = self.nodes.index(cell)
 
         for dx in [-1, 0, 1]:
-            for dy in [-1, 0, 1]:
-                x, y = index // self.tiles[1] + dx, index % self.tiles[1] + dy
-                if 0 <= x < self.tiles[0] and 0 <= y < self.tiles[1]:
-                    adjacent_cells.append(self.nodes[x * self.tiles[1] + y])
+            x, y = index // self.tiles[1] + dx, index % self.tiles[1]
+            if 0 <= x < self.tiles[0] and 0 <= y < self.tiles[1]:
+                adjacent_cells.append(self.nodes[x * self.tiles[1] + y])
+            
+        for dy in [-1, 0, 1]:
+            x, y = index // self.tiles[1], index % self.tiles[1] + dy
+            if 0 <= x < self.tiles[0] and 0 <= y < self.tiles[1]:
+                adjacent_cells.append(self.nodes[x * self.tiles[1] + y])
 
         return adjacent_cells
 
