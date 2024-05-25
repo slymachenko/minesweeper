@@ -21,7 +21,7 @@ class Cell(AnimatedSprite):
         rect_mode: int = const.CORNER,
         wrap_mode: int = const.CLAMP,
     ):
-        super().__init__(scene, x, y, width, height, path, 13, rect_mode, wrap_mode)
+        super().__init__(scene, x, y, width, height, path, 14, rect_mode, wrap_mode)
         self.is_blocked: bool = False
         self.is_revealed: bool = False
         self.is_clicked: bool = False
@@ -46,7 +46,7 @@ class Cell(AnimatedSprite):
                 self.toggle_flag()
 
     def reveal(self):
-        if self.is_revealed or self.is_flagged:
+        if self.is_revealed or self.is_flagged and self.value != -1:
             return
         self.is_revealed = True
 
@@ -59,6 +59,8 @@ class Cell(AnimatedSprite):
             case -1:
                 if self.is_clicked:
                     self.update_frame(12)
+                elif self.is_flagged:
+                    self.update_frame(13)
                 else:
                     self.update_frame(11)
 
