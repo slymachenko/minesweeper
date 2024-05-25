@@ -46,7 +46,7 @@ class Cell(AnimatedSprite):
                 self.toggle_flag()
 
     def reveal(self):
-        if self.is_revealed:
+        if self.is_revealed or self.is_flagged:
             return
         self.is_revealed = True
 
@@ -80,5 +80,9 @@ class Cell(AnimatedSprite):
     
     def toggle_flag(self):
         self.is_flagged = not self.is_flagged
+
+        self.scene.flag_counter.flags += 1 if not self.is_flagged else -1      
+        self.scene.flag_counter.update_digits(self.scene.flag_counter.flags)
+
         self.update_frame(10) if self.is_flagged else self.update_frame(0)
         self.animate()

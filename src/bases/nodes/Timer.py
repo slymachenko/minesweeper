@@ -1,7 +1,6 @@
 # TYPES
 from src.bases.nodes.Counter import Counter
 from src.bases.scenes.Scene import Scene
-from src.bases.nodes.AnimatedSprite import AnimatedSprite
 
 class Timer(Counter):
     def __init__(

@@ -4,6 +4,7 @@ from src.utils import constants as const
 from src.bases.nodes.ColorSprite import ColorSprite
 from src.bases.nodes.Sprite import Sprite
 from src.bases.nodes.Grid import Grid
+from src.bases.nodes.Counter import Counter
 from src.bases.nodes.Timer import Timer
 
 # BASES
@@ -35,9 +36,9 @@ class PlayScene(Scene):
 
         self.gen_play_zone()
 
-        self.gen_header()
-
         self.gen_grid()
+
+        self.gen_header()
     
     def gen_bg(self) -> None:
         self.nodes.append(
@@ -102,6 +103,17 @@ class PlayScene(Scene):
                 192, 192, 192),
         )
     
+    def gen_grid(self) -> None:
+        self.grid = Grid(
+            self,
+            self.updater.game_screen_x[0] + 32, 
+            self.updater.game_screen_y[0] + 32 + 25 + 75, 
+            self.updater.game_screen_x[1] - 64,
+            self.updater.game_screen_y[1] - 64 - 50 - 75,
+            0.1)
+        
+        self.nodes += self.grid.nodes
+
     def gen_header(self) -> None:
         header_zone = ((
             self.updater.game_screen_x[0] + 25,
@@ -123,12 +135,26 @@ class PlayScene(Scene):
                 wrap_mode=const.STRETCH),
         )
 
+        self.gen_flag_counter()
         self.gen_timer()
     
+    def gen_flag_counter(self) -> None:
+        self.flag_counter = Counter(
+            self,
+            self.updater.game_screen_x[0] + 50,
+            self.updater.game_screen_y[0] + 62,
+            "assets/imgs/scores.png",
+            3,
+        )
+
+        self.flag_counter.flags = self.grid.mines
+        self.flag_counter.update_digits(self.flag_counter.flags)
+        
+        self.nodes += self.flag_counter.nodes
+
     def gen_timer(self) -> None:
         self.timer = Timer(
             self,
-            # self.updater.game_screen_x[0] + 50,
             self.updater.game_screen_x[1] - 50 + (self.renderer.screen_width - self.renderer.screen_height) // 2 - 39,
             self.updater.game_screen_y[0] + 62,
             "assets/imgs/scores.png",
@@ -136,17 +162,6 @@ class PlayScene(Scene):
         )
         
         self.nodes += self.timer.nodes
-
-    def gen_grid(self) -> None:
-        self.grid = Grid(
-            self,
-            self.updater.game_screen_x[0] + 32, 
-            self.updater.game_screen_y[0] + 32 + 25 + 75, 
-            self.updater.game_screen_x[1] - 64,
-            self.updater.game_screen_y[1] - 64 - 50 - 75,
-            0.1)
-        
-        self.nodes += self.grid.nodes
 
     def game_over(self, is_lost: bool = True) -> None:
         if is_lost:
