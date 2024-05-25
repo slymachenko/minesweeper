@@ -19,7 +19,7 @@ class Grid(Node):
     ):
         super().__init__(scene, x, y, width, height)
         self.tiles = tiles
-        self.mines = mines_percentage * tiles * tiles
+        self.mines = (int)(mines_percentage * tiles * tiles)
         
         self.nodes = []
         self.setup()
@@ -43,14 +43,6 @@ class Grid(Node):
                 mines_amount -= 1
     
     def gen_grid(self):
-        # grid_panel = ((
-        #     self.scene.updater.game_screen_x[0] + 32 + 25,
-        #     (self.scene.updater.game_screen_x[1] - 64 - 50) // self.tiles,
-        # ),(
-        #     self.scene.updater.game_screen_y[0] + 32 + 25,
-        #     (self.scene.updater.game_screen_y[1] - 64 - 50) // self.tiles,
-        # ))
-
         for i in range(self.tiles):
             for j in range(self.tiles):
                 self.nodes.append(
@@ -63,4 +55,25 @@ class Grid(Node):
                         "assets/imgs/cells.png",
                         True if [i, j] in self.mines_positions else False
                     ),
-                )        
+                )
+    
+    def get_adjacent_cells(self, cell):
+        adjacent_cells = []
+        index = self.nodes.index(cell)
+
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                x, y = index % self.tiles + dx, index // self.tiles + dy
+                if 0 <= x < self.tiles and 0 <= y < self.tiles:
+                    adjacent_cells.append(self.nodes[y * self.tiles + x])
+
+        return adjacent_cells
+
+    def reveal_all_mines(self):
+        for node in self.nodes:
+            if node.value == -1:
+                node.reveal()
+    
+    def block_all_cells(self):
+        for node in self.nodes:
+            node.is_blocked = True
