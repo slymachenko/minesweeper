@@ -1,12 +1,12 @@
 from src.utils import constants as const
 
 # BASES
-from src.bases.nodes.Sprite import Sprite
+from src.nodes.Sprite import Sprite
 
 # TYPES
 from typing import Tuple
 from pygame.surface import Surface
-from src.bases.scenes.Scene import Scene
+from src.bases.Scene import Scene
 
 
 class AnimatedSprite(Sprite):

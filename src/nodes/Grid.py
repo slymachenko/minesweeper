@@ -1,9 +1,9 @@
 import random
-from src.bases.nodes.Cell import Cell
+from src.nodes.Cell import Cell
 
 # TYPES
-from src.bases.nodes.Node import Node
-from src.bases.scenes.Scene import Scene
+from src.bases.Node import Node
+from src.bases.Scene import Scene
 
 
 class Grid(Node):

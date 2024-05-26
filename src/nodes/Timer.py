@@ -1,6 +1,6 @@
 # TYPES
-from src.bases.nodes.Counter import Counter
-from src.bases.scenes.Scene import Scene
+from src.nodes.Counter import Counter
+from src.bases.Scene import Scene
 
 class Timer(Counter):
     def __init__(

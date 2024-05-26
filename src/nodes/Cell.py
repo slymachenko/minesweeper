@@ -2,10 +2,10 @@ from pygame import mouse
 from src.utils import constants as const
 
 # BASES
-from src.bases.nodes.AnimatedSprite import AnimatedSprite
+from src.nodes.AnimatedSprite import AnimatedSprite
 
 # TYPES
-from src.bases.scenes.Scene import Scene
+from src.bases.Scene import Scene
 
 
 class Cell(AnimatedSprite):

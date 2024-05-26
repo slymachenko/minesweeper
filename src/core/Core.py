@@ -10,7 +10,7 @@ from src.core.Updater import Updater
 from src.core.Renderer import Renderer
 
 # TYPES
-from src.bases.scenes.Scene import Scene
+from src.bases.Scene import Scene
 
 
 class Core:

@@ -1,6 +1,6 @@
 # TYPES
 from pygame.rect import Rect
-from src.bases.scenes.Scene import Scene
+from src.bases.Scene import Scene
 
 
 class Node:

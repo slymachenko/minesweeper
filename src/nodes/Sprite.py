@@ -4,13 +4,13 @@ from pygame.transform import scale
 from src.utils import constants as const
 
 # BASES
-from src.bases.nodes.Node import Node
+from src.bases.Node import Node
 from src.bases.Renderable import Renderable
 
 # TYPES
 from typing import Tuple
 from pygame.surface import Surface
-from src.bases.scenes.Scene import Scene
+from src.bases.Scene import Scene
 
 
 class Sprite(Node, Renderable):

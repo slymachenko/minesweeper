@@ -1,7 +1,7 @@
 # TYPES
-from src.bases.nodes.Node import Node
-from src.bases.scenes.Scene import Scene
-from src.bases.nodes.AnimatedSprite import AnimatedSprite
+from src.bases.Node import Node
+from src.bases.Scene import Scene
+from src.nodes.AnimatedSprite import AnimatedSprite
 
 class Counter(Node):
     def __init__(

@@ -1,18 +1,18 @@
 import random
 from src.utils import constants as const
 
-from src.bases.nodes.ColorSprite import ColorSprite
-from src.bases.nodes.Sprite import Sprite
-from src.bases.nodes.Grid import Grid
-from src.bases.nodes.Counter import Counter
-from src.bases.nodes.Timer import Timer
-from src.bases.nodes.SmileButton import SmileButton
+from src.nodes.ColorSprite import ColorSprite
+from src.nodes.Sprite import Sprite
+from src.nodes.Grid import Grid
+from src.nodes.Counter import Counter
+from src.nodes.Timer import Timer
+from src.nodes.SmileButton import SmileButton
 
 # BASES
-from src.bases.scenes.Scene import Scene
+from src.bases.Scene import Scene
 
 # TYPES
-from src.bases.nodes.Node import Node
+from src.bases.Node import Node
 from src.core.InputManager import InputManager
 from src.core.Updater import Updater
 from src.core.Renderer import Renderer
