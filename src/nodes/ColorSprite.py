@@ -6,7 +6,6 @@ from src.bases.Node import Node
 from src.bases.Renderable import Renderable
 
 # TYPES
-from pygame.surface import Surface
 from src.bases.Scene import Scene
 
 
@@ -20,10 +19,6 @@ class ColorSprite(Node, Renderable):
     g: int
     b: int
     rect_mode: int
-
-    sprite: Surface
-    tiles_x: int
-    tiles_y: int
 
     def __init__(
         self,
